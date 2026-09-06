@@ -1,14 +1,20 @@
-interface TaskCardProps {
-  title: string;
-  description: string;
-}
+import React from "react";
 
-export default function TaskCard({ title, description }: TaskCardProps) {
+export default function TaskCard({ id, title, description, onMove }) {
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
-      <p className="text-gray-600 text-sm mt-1">{description}</p>
+    <div className="p-4 mb-4 bg-white rounded-lg shadow">
+      <h3 className="text-lg font-bold">{title}</h3>
+      <p className="text-gray-700">{description}</p>
+
+      {/* Movement Button (arrow icon) */}
+      {onMove && (
+        <button
+          onClick={onMove}
+          className="mt-2 text-purple-600 text-xl"
+        >
+          ➜
+        </button>
+      )}
     </div>
   );
 }
-

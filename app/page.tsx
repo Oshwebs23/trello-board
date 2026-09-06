@@ -54,6 +54,19 @@ export default function Home() {
     setShowForm(false);
   };
 
+  // Movement logic
+  const moveToDoing = (id) => {
+    const task = todoTasks.find((t) => t.id === id);
+    setTodoTasks(todoTasks.filter((t) => t.id !== id));
+    setDoingTasks([...doingTasks, task]);
+  };
+
+  const moveToDone = (id) => {
+    const task = doingTasks.find((t) => t.id === id);
+    setDoingTasks(doingTasks.filter((t) => t.id !== id));
+    setDoneTasks([...doneTasks, task]);
+  };
+
   return (
     <main className="p-6 grid grid-cols-3 gap-6">
       {/* To Do Column */}
@@ -62,8 +75,10 @@ export default function Home() {
         {todoTasks.map((task) => (
           <TaskCard
             key={task.id}
+            id={task.id}
             title={task.title}
             description={task.description}
+            onMove={() => moveToDoing(task.id)}
           />
         ))}
       </div>
@@ -74,8 +89,10 @@ export default function Home() {
         {doingTasks.map((task) => (
           <TaskCard
             key={task.id}
+            id={task.id}
             title={task.title}
             description={task.description}
+            onMove={() => moveToDone(task.id)}
           />
         ))}
       </div>
@@ -86,6 +103,7 @@ export default function Home() {
         {doneTasks.map((task) => (
           <TaskCard
             key={task.id}
+            id={task.id}
             title={task.title}
             description={task.description}
           />
@@ -138,7 +156,3 @@ export default function Home() {
     </main>
   );
 }
-
-
-
-
