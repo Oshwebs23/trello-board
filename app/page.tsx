@@ -54,7 +54,7 @@ export default function Home() {
     setShowForm(false);
   };
 
-  // Movement logic
+  // Movement logic (forward)
   const moveToDoing = (id) => {
     const task = todoTasks.find((t) => t.id === id);
     setTodoTasks(todoTasks.filter((t) => t.id !== id));
@@ -65,6 +65,19 @@ export default function Home() {
     const task = doingTasks.find((t) => t.id === id);
     setDoingTasks(doingTasks.filter((t) => t.id !== id));
     setDoneTasks([...doneTasks, task]);
+  };
+
+  // Movement logic (backwards)
+  const moveBackToDoing = (id) => {
+    const task = doneTasks.find((t) => t.id === id);
+    setDoneTasks(doneTasks.filter((t) => t.id !== id));
+    setDoingTasks([...doingTasks, task]);
+  };
+
+  const moveBackToTodo = (id) => {
+    const task = doingTasks.find((t) => t.id === id);
+    setDoingTasks(doingTasks.filter((t) => t.id !== id));
+    setTodoTasks([...todoTasks, task]);
   };
 
   return (
@@ -93,6 +106,7 @@ export default function Home() {
             title={task.title}
             description={task.description}
             onMove={() => moveToDone(task.id)}
+            onMoveBack={() => moveBackToTodo(task.id)}
           />
         ))}
       </div>
@@ -106,6 +120,7 @@ export default function Home() {
             id={task.id}
             title={task.title}
             description={task.description}
+            onMoveBack={() => moveBackToDoing(task.id)}
           />
         ))}
       </div>
