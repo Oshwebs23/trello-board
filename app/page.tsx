@@ -80,6 +80,19 @@ export default function Home() {
     setTodoTasks([...todoTasks, task]);
   };
 
+  // Delete logic
+  const deleteFromTodo = (id) => {
+    setTodoTasks(todoTasks.filter((t) => t.id !== id));
+  };
+
+  const deleteFromDoing = (id) => {
+    setDoingTasks(doingTasks.filter((t) => t.id !== id));
+  };
+
+  const deleteFromDone = (id) => {
+    setDoneTasks(doneTasks.filter((t) => t.id !== id));
+  };
+
   return (
     <main className="p-6 grid grid-cols-3 gap-6">
       {/* To Do Column */}
@@ -92,6 +105,7 @@ export default function Home() {
             title={task.title}
             description={task.description}
             onMove={() => moveToDoing(task.id)}
+            onDelete={() => deleteFromTodo(task.id)}
           />
         ))}
       </div>
@@ -107,6 +121,7 @@ export default function Home() {
             description={task.description}
             onMove={() => moveToDone(task.id)}
             onMoveBack={() => moveBackToTodo(task.id)}
+            onDelete={() => deleteFromDoing(task.id)}
           />
         ))}
       </div>
@@ -121,6 +136,7 @@ export default function Home() {
             title={task.title}
             description={task.description}
             onMoveBack={() => moveBackToDoing(task.id)}
+            onDelete={() => deleteFromDone(task.id)}
           />
         ))}
       </div>
@@ -171,3 +187,4 @@ export default function Home() {
     </main>
   );
 }
+
